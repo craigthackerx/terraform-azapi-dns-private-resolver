@@ -30,5 +30,26 @@ module "network" {
 
 
 module "private_resolver" {
-  source = "registry.terraform.io/libre-devops/dns-private-resolver/azapi"
+  source = "../"
+
+  rg_name  = module.rg.rg_name // rg-ldo-euw-dev-build
+  location = module.rg.rg_location
+  tags     = local.tags
+  rg_id    = module.rg.rg_id
+
+
+  forwarding_rule_domain_name_target = "libredevops.org"
+  forwarding_rule_name               = "dnspr-fowarding-rule-example"
+  inbound_endpoint_name              = "dnspr-iep-example"
+  outbound_endpoint_name             = "dnspr-oep-example"
+  resolver_name                      = "lbdo-dnspr-01"
+  resolver_vnet_link_name            = "lbdo-dnspr-link"
+  rule_set_name                      = "lbdo-dnspr-rule-set"
+  subnet_id                          = element(module.network.subnets_ids, 1)
+  target_dns_servers_info            = ["10.0.0.1"]
+  vnet_id                            = module.network.vnet_id
 }
+
+#module "private_resolver" {
+#  source = "registry.terraform.io/libre-devops/dns-private-resolver/azapi"
+#}
