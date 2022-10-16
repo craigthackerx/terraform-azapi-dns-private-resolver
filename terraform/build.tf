@@ -30,7 +30,7 @@ module "network" {
 
 
 module "private_resolver" {
-  source = "../"
+  source = "registry.terraform.io/libre-devops/dns-private-resolver/azapi"
 
   rg_name  = module.rg.rg_name // rg-ldo-euw-dev-build
   location = module.rg.rg_location
@@ -46,10 +46,6 @@ module "private_resolver" {
   resolver_vnet_link_name            = "lbdo-dnspr-link"
   rule_set_name                      = "lbdo-dnspr-rule-set"
   subnet_id                          = element(module.network.subnets_ids, 1)
-  target_dns_servers_info            = ["10.0.0.1"]
+  target_dns_servers_info            = module.network.vnet_dns_servers
   vnet_id                            = module.network.vnet_id
 }
-
-#module "private_resolver" {
-#  source = "registry.terraform.io/libre-devops/dns-private-resolver/azapi"
-#}
