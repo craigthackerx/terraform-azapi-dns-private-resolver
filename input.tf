@@ -19,6 +19,11 @@ variable "inbound_endpoint_name" {
   description = "The name of the inbound endpoint"
 }
 
+variable "inbound_endpoint_subnet_id" {
+  type        = string
+  description = "The subnet ID of for the inbound endpoint to be added to, must not collide with outbound endpoint subnet id"
+}
+
 variable "location" {
   description = "The location for this resource to be put in"
   type        = string
@@ -27,6 +32,11 @@ variable "location" {
 variable "outbound_endpoint_name" {
   type        = string
   description = "The name of the outbound endpoint"
+}
+
+variable "outbound_endpoint_subnet_id" {
+  type        = string
+  description = "The subnet ID for the NICs which are created with the VMs to be added to"
 }
 
 variable "resolver_name" {
@@ -56,11 +66,6 @@ variable "rg_name" {
 variable "rule_set_name" {
   type        = string
   description = "The name of the ruleset"
-}
-
-variable "subnet_id" {
-  type        = string
-  description = "The subnet ID for the NICs which are created with the VMs to be added to"
 }
 
 variable "tags" {
